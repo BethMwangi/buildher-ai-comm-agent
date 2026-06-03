@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as CampaignsRouteImport } from './routes/campaigns'
+import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as IndexRouteImport } from './routes/index'
 
 const EventsRoute = EventsRouteImport.update({
@@ -23,6 +24,11 @@ const CampaignsRoute = CampaignsRouteImport.update({
   path: '/campaigns',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssetsRoute = AssetsRouteImport.update({
+  id: '/assets',
+  path: '/assets',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/assets': typeof AssetsRoute
   '/campaigns': typeof CampaignsRoute
   '/events': typeof EventsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/assets': typeof AssetsRoute
   '/campaigns': typeof CampaignsRoute
   '/events': typeof EventsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/assets': typeof AssetsRoute
   '/campaigns': typeof CampaignsRoute
   '/events': typeof EventsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/campaigns' | '/events'
+  fullPaths: '/' | '/assets' | '/campaigns' | '/events'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/campaigns' | '/events'
-  id: '__root__' | '/' | '/campaigns' | '/events'
+  to: '/' | '/assets' | '/campaigns' | '/events'
+  id: '__root__' | '/' | '/assets' | '/campaigns' | '/events'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AssetsRoute: typeof AssetsRoute
   CampaignsRoute: typeof CampaignsRoute
   EventsRoute: typeof EventsRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CampaignsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assets': {
+      id: '/assets'
+      path: '/assets'
+      fullPath: '/assets'
+      preLoaderRoute: typeof AssetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AssetsRoute: AssetsRoute,
   CampaignsRoute: CampaignsRoute,
   EventsRoute: EventsRoute,
 }
