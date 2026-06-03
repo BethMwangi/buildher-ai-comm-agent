@@ -13,6 +13,7 @@ import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as GeneratedPostsRouteImport } from './routes/generated-posts'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as CampaignsRouteImport } from './routes/campaigns'
+import { Route as BrandSettingsRouteImport } from './routes/brand-settings'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -36,6 +37,11 @@ const CampaignsRoute = CampaignsRouteImport.update({
   path: '/campaigns',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandSettingsRoute = BrandSettingsRouteImport.update({
+  id: '/brand-settings',
+  path: '/brand-settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssetsRoute = AssetsRouteImport.update({
   id: '/assets',
   path: '/assets',
@@ -50,6 +56,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
+  '/brand-settings': typeof BrandSettingsRoute
   '/campaigns': typeof CampaignsRoute
   '/events': typeof EventsRoute
   '/generated-posts': typeof GeneratedPostsRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
+  '/brand-settings': typeof BrandSettingsRoute
   '/campaigns': typeof CampaignsRoute
   '/events': typeof EventsRoute
   '/generated-posts': typeof GeneratedPostsRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
+  '/brand-settings': typeof BrandSettingsRoute
   '/campaigns': typeof CampaignsRoute
   '/events': typeof EventsRoute
   '/generated-posts': typeof GeneratedPostsRoute
@@ -77,6 +86,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/assets'
+    | '/brand-settings'
     | '/campaigns'
     | '/events'
     | '/generated-posts'
@@ -85,6 +95,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/assets'
+    | '/brand-settings'
     | '/campaigns'
     | '/events'
     | '/generated-posts'
@@ -93,6 +104,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/assets'
+    | '/brand-settings'
     | '/campaigns'
     | '/events'
     | '/generated-posts'
@@ -102,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssetsRoute: typeof AssetsRoute
+  BrandSettingsRoute: typeof BrandSettingsRoute
   CampaignsRoute: typeof CampaignsRoute
   EventsRoute: typeof EventsRoute
   GeneratedPostsRoute: typeof GeneratedPostsRoute
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CampaignsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brand-settings': {
+      id: '/brand-settings'
+      path: '/brand-settings'
+      fullPath: '/brand-settings'
+      preLoaderRoute: typeof BrandSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assets': {
       id: '/assets'
       path: '/assets'
@@ -158,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssetsRoute: AssetsRoute,
+  BrandSettingsRoute: BrandSettingsRoute,
   CampaignsRoute: CampaignsRoute,
   EventsRoute: EventsRoute,
   GeneratedPostsRoute: GeneratedPostsRoute,
