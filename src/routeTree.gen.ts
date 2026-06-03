@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as GeneratedPostsRouteImport } from './routes/generated-posts'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as CampaignsRouteImport } from './routes/campaigns'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as IndexRouteImport } from './routes/index'
 
+const GeneratedPostsRoute = GeneratedPostsRouteImport.update({
+  id: '/generated-posts',
+  path: '/generated-posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/assets': typeof AssetsRoute
   '/campaigns': typeof CampaignsRoute
   '/events': typeof EventsRoute
+  '/generated-posts': typeof GeneratedPostsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
   '/campaigns': typeof CampaignsRoute
   '/events': typeof EventsRoute
+  '/generated-posts': typeof GeneratedPostsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,20 @@ export interface FileRoutesById {
   '/assets': typeof AssetsRoute
   '/campaigns': typeof CampaignsRoute
   '/events': typeof EventsRoute
+  '/generated-posts': typeof GeneratedPostsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assets' | '/campaigns' | '/events'
+  fullPaths: '/' | '/assets' | '/campaigns' | '/events' | '/generated-posts'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assets' | '/campaigns' | '/events'
-  id: '__root__' | '/' | '/assets' | '/campaigns' | '/events'
+  to: '/' | '/assets' | '/campaigns' | '/events' | '/generated-posts'
+  id:
+    | '__root__'
+    | '/'
+    | '/assets'
+    | '/campaigns'
+    | '/events'
+    | '/generated-posts'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +82,18 @@ export interface RootRouteChildren {
   AssetsRoute: typeof AssetsRoute
   CampaignsRoute: typeof CampaignsRoute
   EventsRoute: typeof EventsRoute
+  GeneratedPostsRoute: typeof GeneratedPostsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/generated-posts': {
+      id: '/generated-posts'
+      path: '/generated-posts'
+      fullPath: '/generated-posts'
+      preLoaderRoute: typeof GeneratedPostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/events': {
       id: '/events'
       path: '/events'
@@ -107,6 +130,7 @@ const rootRouteChildren: RootRouteChildren = {
   AssetsRoute: AssetsRoute,
   CampaignsRoute: CampaignsRoute,
   EventsRoute: EventsRoute,
+  GeneratedPostsRoute: GeneratedPostsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
