@@ -16,6 +16,7 @@ import { Route as CampaignsRouteImport } from './routes/campaigns'
 import { Route as BrandSettingsRouteImport } from './routes/brand-settings'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as AiGeneratorRouteImport } from './routes/ai-generator'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TemplatesRoute = TemplatesRouteImport.update({
@@ -53,6 +54,11 @@ const AnalyticsRoute = AnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AiGeneratorRoute = AiGeneratorRouteImport.update({
+  id: '/ai-generator',
+  path: '/ai-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -61,6 +67,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai-generator': typeof AiGeneratorRoute
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand-settings': typeof BrandSettingsRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai-generator': typeof AiGeneratorRoute
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand-settings': typeof BrandSettingsRoute
@@ -82,6 +90,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai-generator': typeof AiGeneratorRoute
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand-settings': typeof BrandSettingsRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ai-generator'
     | '/analytics'
     | '/assets'
     | '/brand-settings'
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ai-generator'
     | '/analytics'
     | '/assets'
     | '/brand-settings'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ai-generator'
     | '/analytics'
     | '/assets'
     | '/brand-settings'
@@ -125,6 +137,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiGeneratorRoute: typeof AiGeneratorRoute
   AnalyticsRoute: typeof AnalyticsRoute
   AssetsRoute: typeof AssetsRoute
   BrandSettingsRoute: typeof BrandSettingsRoute
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ai-generator': {
+      id: '/ai-generator'
+      path: '/ai-generator'
+      fullPath: '/ai-generator'
+      preLoaderRoute: typeof AiGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -197,6 +217,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiGeneratorRoute: AiGeneratorRoute,
   AnalyticsRoute: AnalyticsRoute,
   AssetsRoute: AssetsRoute,
   BrandSettingsRoute: BrandSettingsRoute,
